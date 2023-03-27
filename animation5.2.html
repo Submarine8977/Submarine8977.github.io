@@ -1,0 +1,36 @@
+以下は、HTMLとCSSを使用して、常に動き続ける、飽きの来ない、おしゃれなアニメーションを実現するためのサンプルコードです。
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Infinity Animation</title>
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		#box {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #000;
+			animation: rotateBox 30s linear infinite;
+			transform-origin: center;
+		}
+
+		@keyframes rotateBox {
+			from {transform: rotate(0deg);}
+			to {transform: rotate(360deg);}
+		}
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+</body>
+</html>
