@@ -13,13 +13,13 @@
   }
 
   .circle {
-    position: fixed;
+    position: absolute;
     width: 50px;
     height: 50px;
     background-color: #3498db;
     border-radius: 50%;
     pointer-events: none;
-    z-index: 1000;
+    z-index: 1;
     transition: background-color 0.3s, transform 0.3s;
   }
 
@@ -32,6 +32,7 @@
     height: 100px;
     background-color: #e74c3c;
     border-radius: 50%;
+    z-index: 0
   }
 
   .circle.hovered {
@@ -47,17 +48,14 @@
   const circle = document.querySelector('.circle');
   const target = document.querySelector('.target');
 
-  document.addEventListener('mousemove', (e) => {
-    circle.style.left = e.clientX - 25 + 'px';
-    circle.style.top = e.clientY - 25 + 'px';
+  target.addEventListener('mousemove', (e) => {
+    const targetRect = target.getBoundingClientRect();
+    const x = e.clientX - targetRect.left - 25;
+    const y = e.clientY - targetRect.top - 25;
 
-    const rect1 = circle.getBoundingClientRect();
-    const rect2 = target.getBoundingClientRect();
-
-    if (rect1.left < rect2.right &&
-        rect1.right > rect2.left &&
-        rect1.top < rect2.bottom &&
-        rect1.bottom > rect2.top) {
+    if (x >= 0 && x <= targetRect.width - 50 && y >= 0 && y <= targetRect.height - 50) {
+      circle.style.left = e.clientX - 25 + 'px';
+      circle.style.top = e.clientY - 25 + 'px';
       circle.classList.add('hovered');
     } else {
       circle.classList.remove('hovered');
