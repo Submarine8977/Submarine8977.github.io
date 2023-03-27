@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Dynamic Animation</title>
+	<style>
+		/* Reset default margin and padding */
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		/* Set the background color */
+		body {
+			background-color: #F1F1F1;
+		}
+
+		/* Set the background position and size */
+		.background {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+
+		/* Set the wave position and size */
+		.wave {
+			position: absolute;
+			top: 50%;
+			left: 0;
+			width: 100%;
+			height: 400px;
+			background-image: url('wave.svg');
+			background-repeat: repeat-x;
+			animation: wave 15s linear infinite;
+		}
+
+		/* Define the animation */
+		@keyframes wave {
+			0% {
+				background-position-x: 0;
+			}
+			100% {
+				background-position-x: 1000px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="background">
+		<div class="wave"></div>
+	</div>
+</body>
+</html>
