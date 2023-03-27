@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>カラフルな背景</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+      // キャンバスを設定する
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // 色をランダムに生成する関数
+      function randomColor() {
+        return '#' + Math.floor(Math.random()*16777215).toString(16);
+      }
+
+      // パーティクルのクラス
+      class Particle {
+        constructor(x, y, radius, color, speedX, speedY) {
+          this.x = x;
+          this.y = y;
+          this.radius = radius;
+          this.color = color;
+          this.speedX = speedX;
+          this.speedY = speedY;
+        }
+
+        // パーティクルを描画する関数
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+        }
+
+        // パーティクルを動かす関数
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+
+          if (this.x < 0 || this.x > canvas.width) {
+            this.speedX = -this.speedX;
+          }
+
+          if (this.y < 0 || this.y > canvas.height) {
+            this.speedY = -this.speedY;
+          }
+
+          this.draw();
+        }
+      }
+
+      // パーティクルの配列を生成する
+      const particles = [];
+      const numParticles = 500;
+      for (let i = 0; i < numParticles; i++) {
+        const x = Math.random()*canvas.width;
+        const y = Math.random()*canvas.height;
+        const radius = Math.random()*10;
+        const color = randomColor();
+        const speedX = Math.random()*10 - 5;
+        const speedY = Math.random()*10 - 5;
+        particles.push(new Particle(x, y, radius, color, speedX, speedY));
+      }
+
+      // アニメーションを実行する関数
+      function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < particles.length; i++) {
+          particles[i].update();
+        }
+      }
+
+      animate();
+    </script>
+  </body>
+</html>
