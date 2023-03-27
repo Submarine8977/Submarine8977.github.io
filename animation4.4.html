@@ -37,6 +37,14 @@
   document.addEventListener('mousemove', (e) => {
     circle.style.left = e.clientX - 25 + 'px';
     circle.style.top = e.clientY - 25 + 'px';
+
+    // Get elements under the circle
+    const elementsUnderCircle = document.elementsFromPoint(e.clientX, e.clientY);
+    
+    // Check if the top element is not the circle and trigger the 'mousemove' event on the element
+    if (elementsUnderCircle.length > 0 && elementsUnderCircle[0] !== circle) {
+      elementsUnderCircle[0].dispatchEvent(new MouseEvent('mousemove', e));
+    }
   });
 </script>
 </body>
