@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>追従アニメーション</title>
+<style>
+  body {
+    height: 100vh;
+    margin: 0;
+    background-color: transparent;
+    position: relative;
+  }
+
+  .circle {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #3498db;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .target {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background-color: #e74c3c;
+    border-radius: 50%;
+  }
+
+  .target.touched {
+    background-color: #2ecc71;
+  }
+</style>
+</head>
+<body>
+<div class="circle"></div>
+<div class="target"></div>
+<script>
+  const circle = document.querySelector('.circle');
+  const target = document.querySelector('.target');
+
+  document.addEventListener('mousemove', (e) => {
+    circle.style.left = e.clientX - 25 + 'px';
+    circle.style.top = e.clientY - 25 + 'px';
+
+    const rect1 = circle.getBoundingClientRect();
+    const rect2 = target.getBoundingClientRect();
+
+    if (rect1.left < rect2.right &&
+        rect1.right > rect2.left &&
+        rect1.top < rect2.bottom &&
+        rect1.bottom > rect2.top) {
+      target.classList.add('touched');
+    } else {
+      target.classList.remove('touched');
+    }
+  });
+</script>
+</body>
+</html>
