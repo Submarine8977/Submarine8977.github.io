@@ -1,82 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Dynamic Animation</title>
+	<title>カラフルで動的な背景</title>
 	<style>
-		/* Reset default margin and padding */
-		* {
+		body {
 			margin: 0;
 			padding: 0;
 		}
+	</style>
+	<script>
+		var background = document.getElementById("background");
 
-		/* Set the background color */
-		body {
-			background-color: #F1F1F1;
-		}
-
-		/* Set the background position and size */
-		.background {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			overflow: hidden;
+		function generateRandomColor() {
+		  var letters = "0123456789ABCDEF";
+		  var color = "#";
+		  for (var i = 0; i < 6; i++) {
+		    color += letters[Math.floor(Math.random() * 16)];
+		  }
+		  return color;
 		}
 
-		/* Set the wave position and size */
-		.wave {
-			position: absolute;
-			top: 50%;
-			left: 0;
-			width: 200%;
-			height: 500px;
-			background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2880 320"><path fill="%230099ff" fill-opacity="1" d="M0,224L60,208C120,192,240,160,360,170.7C480,181,600,235,720,245.3C840,256,960,224,1080,192C1200,160,1320,128,1380,112L1440,96L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path><path fill="%230099ff" fill-opacity="1" d="M0,96L60,112C120,128,240,160,360,149.3C480,139,600,85,720,74.7C840,64,960,96,1080,117.3C1200,139,1320,149,1380,154.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>');
-			background-repeat: repeat-x;
-			animation: wave 20s linear infinite;
+		function generateGradient(color) {
+		  var gradient = "linear-gradient(to bottom, " + color + ", #ffffff)";
+		  return gradient;
 		}
 
-		/* Set the boat position and size */
-		.boat {
-			position: absolute;
-			top: calc(50% - 40px);
-			left: -10%;
-			width: 150px;
-			height: 80px;
-			z-index: 1;
-			animation: boat 20s linear infinite;
-			transform-origin: 60% 50%;
+		function setBackground() {
+		  var color = generateRandomColor();
+		  var gradient = generateGradient(color);
+		  background.style.background = gradient;
 		}
 
-		/* Define the wave animation */
-		@keyframes wave {
-			0% {
-				background-position-x: 0;
-			}
-			100% {
-				background-position-x: 2880px;
-			}
-		}
-
-		/* Define the boat animation */
-		@keyframes boat {
-			0% {
-				transform: translate(-10%,			calc(50% - 40px)) rotate(-10deg);
-		}
-		50% {
-			transform: translate(50%, calc(50% - 60px)) rotate(10deg);
-		}
-		100% {
-			transform: translate(110%, calc(50% - 40px)) rotate(-10deg);
-		}
-	}
-</style>
+		setInterval(setBackground, 2000);
+	</script>
 </head>
 <body>
-	<div class="background">
-		<div class="wave"></div>
-		<img class="boat" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M448.775,287.609c0,56.077-75.992,111.768-163.11,111.768c-87.117,0-149.089-37.252-149.089-93.33 c0-56.077,61.972-93.329,149.089-93.329C372.782,212.718,448.775,231.532,448.775,287.609z M120.623,194.058 c-1.234-28.014,20.201-45.41,47.457-47.029l0.88,0.031v-1.406c0-18.107,16.304-32.956,36.41-32.956s36.411,14.849,36.411,32.956 c0,1.881-0.179,3.722-0.521,5.504h8.654c-0.467-1.676-0.728-3.426-0.728-5.226c0-26.978,21.683-49.006,48.305-49.006 c26.619,0,48.303,22.027,48.303,49.006c0,1.893-0.26,3.715-0.704,5.504h8.822c-0.468-1.79-0.72-3.646-0.72-5.504 c0-18.107,16.304-32.956,36.41-32.956s36.411,14.849,36.411,32.956v1.406l0.941-0.031 c27.255-1.382,48.69,19.015,47.455,47.029 c-1.194,27.201-24.409,50.268-51.611,51.462c-6.896,0.283-13.661-1.376-19.684-4.8c-16.706,9.049-35.982,14.281-56.48,14.281 c-87.117,0-149.089-37.252-149.089-93.33C24.534,231.309,65.847,198.431,120.623,194.058z'/></svg>" alt="Boat">
-	</div>
+	<div id="background"></div>
 </body>
 </html>
