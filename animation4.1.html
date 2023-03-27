@@ -13,12 +13,13 @@
   }
 
   .circle {
-    position: absolute;
+    position: fixed;
     width: 50px;
     height: 50px;
     background-color: #3498db;
     border-radius: 50%;
     pointer-events: none;
+    z-index: 1000;
     transition: background-color 0.3s, transform 0.3s;
   }
 
@@ -61,14 +62,6 @@
     } else {
       circle.classList.remove('hovered');
     }
-  });
-
-  target.addEventListener('mouseenter', () => {
-    circle.classList.add('hovered');
-  });
-
-  target.addEventListener('mouseleave', () => {
-    circle.classList.remove('hovered');
   });
 </script>
 </body>
