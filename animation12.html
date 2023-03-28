@@ -84,21 +84,23 @@
       }
     }
 
-    // パーティクルの配列を生成する関数
-    function init() {
-      particlesArray = [];
-      let numberOfParticles =
-      for (let i = 0; i < numberOfParticles; i++) {
-        let size = (Math.random() * 3) + 1;
-        let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-        let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-        let directionX = (Math.random() * 2) - 1;
-        let directionY = (Math.random() * 2) - 1;
-        let color = 'rgba(39, 2, 64,' + Math.random() + ')';
+   // パーティクルの配列を生成する関数
+function init() {
+  particlesArray = [];
+  let numberOfParticles = Math.floor((canvas.width * canvas.height) / 8000);
 
-        particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-      }
-    }
+  for (let i = 0; i < numberOfParticles; i++) {
+    let size = (Math.random() * 3) + 1;
+    let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+    let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+    let directionX = (Math.random() * 2) - 1;
+    let directionY = (Math.random() * 2) - 1;
+    let color = 'rgba(39, 2, 64,' + Math.random() + ')';
+
+    particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+  }
+}
+
 
     // アニメーションする関数
     function animate() {
