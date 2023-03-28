@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mouse Follower</title>
+  <style>
+    .mouse-follower {
+      position: fixed;
+      width: 50px;
+      height: 50px;
+      background-color: transparent;
+      border: 3px solid rgba(255, 92, 31, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      opacity: 0;
+      transition: opacity 0.5s, border-color 0.2s;
+      animation: wobble 1.5s infinite;
+      transform-origin: center;
+    }
+
+    .mouse-follower-inner {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: rgba(255, 92, 31, 0.8);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes wobble {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        border-radius: 50%;
+      }
+      25% {
+        transform: translate(-50%, -50%) scale(0.9);
+border-radius: 40% 60%;
+}
+50% {
+transform: translate(-50%, -50%) scale(1.1);
+border-radius: 60% 40%;
+}
+75% {
+transform: translate(-50%, -50%) scale(0.95);
+border-radius: 40% 60%;
+}
+}
+    a {
+  cursor: none !important;
+}
+  </style>
+</head>
+<body>
+  <script>
+    (function() {
+      // Hide default mouse pointer
+      document.body.style.cursor = "none";
+        var follower = document.createElement('div');
+  follower.classList.add('mouse-follower');
+  document.body.appendChild(follower);
+
+  var followerInner = document.createElement('div');
+  followerInner.classList.add('mouse-follower-inner');
+  follower.appendChild(followerInner);
+
+  function updatePosition(x, y) {
+    follower.style.left = x + 'px';
+    follower.style.top = y + 'px';
+  }
+
+  document.addEventListener('mousemove', function(event) {
+    updatePosition(event.clientX, event.clientY);
+    follower.style.opacity = 1;
+  });
+
+  document.addEventListener('mousedown', function() {
+    follower.style.borderColor = 'rgba(41, 41, 41, 0.5)';
+    followerInner.style.backgroundColor = 'rgba(41, 41, 41, 0.8)';
+  });
+
+  document.addEventListener('mouseup', function() {
+    follower.style.borderColor = 'rgba(255, 92, 31, 0.5)';
+followerInner.style.backgroundColor = 'rgba(255, 92, 31, 0.8)';
+});
+        document.addEventListener('mouseover', function(event) {
+    if (event.target.tagName.toLowerCase() === 'a') {
+      follower.style.borderColor = 'rgba(67, 67, 67, 0.5)';
+      followerInner.style.backgroundColor = 'rgba(67, 67, 67, 0.8)';
+    }
+  });
+
+  document.addEventListener('mouseout', function(event) {
+    if (event.target.tagName.toLowerCase() === 'a') {
+      follower.style.borderColor = 'rgba(255, 92, 31, 0.5)';
+      followerInner.style.backgroundColor = 'rgba(255, 92, 31, 0.8)';
+    }
+  });
+
+})();
+</script>
+</body>
+</html>
+
